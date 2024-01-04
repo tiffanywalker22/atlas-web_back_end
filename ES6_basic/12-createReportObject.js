@@ -3,8 +3,8 @@ export default function createReportObject(employeesList) {
     allEmployees: {
       ...employeesList,
     },
-    getNumberOfDepartments(employeesList) {
-      return Object.kets(employeesList).length;
+    getNumberOfDepartments() {
+      return Object.keys(employeesList).length;
     },
   };
 }
