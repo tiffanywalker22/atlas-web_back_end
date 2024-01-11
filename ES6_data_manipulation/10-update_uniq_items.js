@@ -8,4 +8,5 @@ export default function updateUniqueItems(groceries) {
       groceries.set(item, 100);
     }
   }
+  return groceries;
 }
