@@ -1,14 +1,14 @@
 export default function quardrail(mathFunction) {
-    const queue = [];
+  const queue = [];
 
-    try {
-        const result = mathFunction();
-        queue.push(result);
-    } catch (error) {
-        queue.push(error.message);
-    } finally {
-        queue.push('Guardrail was processed');
-    }
+  try {
+    const result = mathFunction();
+    queue.push(result);
+  } catch (error) {
+    queue.push(error.message);
+  } finally {
+    queue.push('Guardrail was processed');
+  }
 
-    return queue;
+  return queue;
 }
