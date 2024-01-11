@@ -1,6 +1,6 @@
 export default function updateUniqueItems(groceries) {
   if (!(groceries instanceof Map)) {
-    throw TypeError('Cannot process');
+    throw new Error('Cannot process');
   }
   const newGroceries = new Map();
 
