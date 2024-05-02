@@ -3,23 +3,8 @@
 
 
 import asyncio
-from random import random
-
-
-async def wait_random(max_delay):
-    """
-    waits for a random amount of time up to max_delay
-
-    Args:
-    - max_delay (float): The maximum delay in seconds
-
-    Returns:
-    - float: The actual delay in seconds
-    """
-    delay = random() * max_delay
-    await asyncio.sleep(delay)
-    return delay
-
+import random
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 async def wait_n(n, max_delay):
     """
