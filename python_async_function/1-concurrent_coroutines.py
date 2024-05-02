@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """execute multiple coroutines at the same time with async"""
 
+
 import asyncio
 from random import random
+
 
 async def wait_random(max_delay):
     """
@@ -17,6 +19,7 @@ async def wait_random(max_delay):
     delay = random() * max_delay
     await asyncio.sleep(delay)
     return delay
+
 
 async def wait_n(n, max_delay):
     """
