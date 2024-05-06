@@ -4,6 +4,7 @@ and is a caching system"""
 
 from base_caching import BaseCaching
 
+
 class MRUCache(BaseCaching):
     """A caching system that implements the MRU
     and inherits from BaseCaching.
