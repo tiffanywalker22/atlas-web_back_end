@@ -3,6 +3,7 @@
 and is a caching system"""
 from base_caching import BaseCaching
 
+
 class LIFOCache(BaseCaching):
     """A caching system that implements the LIFO
     and inherits from BaseCaching.
