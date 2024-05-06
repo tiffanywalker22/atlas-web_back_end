@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Task 0"""
+
+"""Create a class BasicCache that inherits from BaseCaching and
+is a caching system"""
+
 from base_caching import BaseCaching
 
 
