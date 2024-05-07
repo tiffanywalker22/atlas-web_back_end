@@ -6,6 +6,7 @@ default value of 10"""
 from typing import Optional, Dict, List
 import csv
 
+
 class Server:
     """Server class to paginate a database of popular baby names"""
     DATA_FILE = "Popular_Baby_Names.csv"
@@ -34,7 +35,7 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = 0, page_size: int = 10) -> Dict:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """Function that returns a dictionary with deletion-resilient
         hyperlinked pagination data"""
         assert isinstance(index, int) and isinstance(page_size, int) and \
