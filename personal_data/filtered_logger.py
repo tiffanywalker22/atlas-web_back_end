@@ -7,13 +7,31 @@ import logging
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class """
+    """
+    Formatter class for redacting sensitive information in log messages
+
+    Attributes:
+    REDACTION (str): The redacted string to replace sensitive information
+    FORMAT (str): The log message format including placeholders for logging attributes
+    SEPARATOR (str): The separator character used to separate fields in log messages
+
+    Args:
+    fields (List[str]): A list of strings representing fields with sensitive information
+
+    """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
+        """
+        Initialize the RedactingFormatter
+
+        Args:
+        fields (List[str]): A list of strings representing fields with sensitive information
+
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
