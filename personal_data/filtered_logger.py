@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Write a function called filter_datum that
-returns the log message obfuscated"""
+"""Implement the format method to filter values in incoming log
+records using filter_datum. Values for fields in
+fields should be filtered"""
 import re
 from typing import List
 import logging
