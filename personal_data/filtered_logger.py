@@ -12,11 +12,14 @@ class RedactingFormatter(logging.Formatter):
 
     Attributes:
     REDACTION (str): The redacted string to replace sensitive information
-    FORMAT (str): The log message format including placeholders for logging attributes
-    SEPARATOR (str): The separator character used to separate fields in log messages
+    FORMAT (str): The log message format including placeholders
+    for logging attributes
+    SEPARATOR (str): The separator character used to separate
+    fields in log messages
 
     Args:
-    fields (List[str]): A list of strings representing fields with sensitive information
+    fields (List[str]): A list of strings representing fields
+    with sensitive information
 
     """
 
@@ -29,7 +32,8 @@ class RedactingFormatter(logging.Formatter):
         Initialize the RedactingFormatter
 
         Args:
-        fields (List[str]): A list of strings representing fields with sensitive information
+        fields (List[str]): A list of strings representing fields
+        with sensitive information
 
         """
         super(RedactingFormatter, self).__init__(self.FORMAT)
