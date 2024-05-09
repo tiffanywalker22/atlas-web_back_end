@@ -5,6 +5,9 @@ fields should be filtered"""
 import re
 from typing import List
 import logging
+import csv
+
+PII_FIELDS = ('name', 'email', 'phone_number', 'address', 'credit_card')
 
 
 class RedactingFormatter(logging.Formatter):
@@ -70,3 +73,22 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION, record.msg,
                                   self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
+
+    def get_logger() -> logging.Logger:
+        """
+        Get a configured logger object for logging user data.
+
+        Returns:
+        logging.Logger: The configured logger object.
+    """
+        logger = logging.getLogger("user_data")
+        logger.setLevel(logging.INFO)
+        logger.propagate = False
+
+        stream_handler = logging.StreamHandler()
+        formatter = RedactingFormatter(PII_FIELDS)
+        stream_handler.setFormatter(formatter)
+
+        logger.addHandler(stream_handler)
+
+        return logger
