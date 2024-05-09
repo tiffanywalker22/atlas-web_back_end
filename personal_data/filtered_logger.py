@@ -74,21 +74,21 @@ class RedactingFormatter(logging.Formatter):
                                   self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
 
-    def get_logger() -> logging.Logger:
-        """
-        Get a configured logger object for logging user data.
-
-        Returns:
-        logging.Logger: The configured logger object.
+def get_logger() -> logging.Logger:
     """
-        logger = logging.getLogger("user_data")
-        logger.setLevel(logging.INFO)
-        logger.propagate = False
+    Get a configured logger object for logging user data.
 
-        stream_handler = logging.StreamHandler()
-        formatter = RedactingFormatter(PII_FIELDS)
-        stream_handler.setFormatter(formatter)
+    Returns:
+        .Logger: The configured logger object.
+    """
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
 
-        logger.addHandler(stream_handler)
+    stream_handler = logging.StreamHandler()
+    formatter = RedactingFormatter(PII_FIELDS)
+    stream_handler.setFormatter(formatter)
 
-        return logger
+    logger.addHandler(stream_handler)
+
+    return logger
