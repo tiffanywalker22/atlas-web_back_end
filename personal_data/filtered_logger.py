@@ -7,7 +7,7 @@ from typing import List
 import logging
 import csv
 
-PII_FIELDS = ('name', 'email', 'phone_number', 'password', 'ssn')
+PII_FIELDS = ('name', 'email', 'phone', 'password', 'ssn')
 
 
 class RedactingFormatter(logging.Formatter):
@@ -73,6 +73,7 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION, record.msg,
                                   self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
+
 
 def get_logger() -> logging.Logger:
     """
