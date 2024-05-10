@@ -3,7 +3,7 @@
 records using filter_datum. Values for fields in
 fields should be filtered"""
 import re
-from typing import List
+from typing import List, Union
 import logging
 import csv
 import os
@@ -12,7 +12,7 @@ import mysql.connector
 PII_FIELDS = ('name', 'email', 'phone', 'password', 'ssn')
 
 
-def get_db():
+def get_db() -> Union[mysql.connector.connection.MySQLConnection, None]:
     """
     Connect to the MySQL database using environment variables for credentials
 
@@ -39,6 +39,7 @@ def get_db():
     except mysql.connector.Error as error:
         print(f"Error connecting to the database: {error}")
         raise
+
 
 class RedactingFormatter(logging.Formatter):
     """
@@ -74,7 +75,8 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """Customizes the format of log messages by obfuscating sensitive information  """
+        """Customizes the format of log messages by obfuscating
+        sensitive information  """
         def filter_datum(
                         fields: List[str],
                         redaction: str,
