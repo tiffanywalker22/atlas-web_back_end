@@ -3,7 +3,7 @@
 records using filter_datum. Values for fields in
 fields should be filtered"""
 import re
-from typing import List, Union
+from typing import List
 import logging
 import csv
 import os
@@ -12,7 +12,7 @@ import mysql.connector
 PII_FIELDS = ('name', 'email', 'phone', 'password', 'ssn')
 
 
-def get_db() -> Union[mysql.connector.connection.MySQLConnection, None]:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """
     Connect to the MySQL database using environment variables for credentials
 
