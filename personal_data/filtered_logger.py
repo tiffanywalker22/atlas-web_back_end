@@ -6,9 +6,39 @@ import re
 from typing import List
 import logging
 import csv
+import os
+import mysql.connector
 
 PII_FIELDS = ('name', 'email', 'phone', 'password', 'ssn')
 
+
+def get_db():
+    """
+    Connect to the MySQL database using environment variables for credentials
+
+    Returns:
+    mysql.connector.connection.MySQLConnection: The database connection object
+
+    Raises:
+    mysql.connector.Error: If there is an error connecting to the database
+    """
+
+    db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    try:
+        connection = mysql.connector.connect(
+            user=db_username,
+            password=db_password,
+            host=db_host,
+            database=db_name
+        )
+        return connection
+    except mysql.connector.Error as error:
+        print(f"Error connecting to the database: {error}")
+        raise
 
 class RedactingFormatter(logging.Formatter):
     """
@@ -44,6 +74,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """Customizes the format of log messages by obfuscating sensitive information  """
         def filter_datum(
                         fields: List[str],
                         redaction: str,
