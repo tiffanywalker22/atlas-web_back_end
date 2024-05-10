@@ -5,7 +5,7 @@ which is a byte string./main.py"""
 import bcrypt
 
 
-def hash_password(password):
+def hash_password(password: str) -> bytes:
     """Generate a salt and hash the password using bcrypt"""
 
     salt = bcrypt.gensalt()
