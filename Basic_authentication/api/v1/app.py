@@ -22,6 +22,7 @@ if getenv("AUTH_TYPE") == "auth":
 
 @app.before_request
 def before_request():
+    """Handles actions before each request is processed"""
     if auth is None:
         return
 
