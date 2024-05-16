@@ -7,6 +7,7 @@ from models.user import User
 
 User = TypeVar('User')
 
+
 class BasicAuth(Auth):
     """class for basic auth"""
     def extract_base64_authorization_header(self,
@@ -16,9 +17,9 @@ class BasicAuth(Auth):
         """
         if authorization_header is None:
             return None
-        if not isinstance(authorization_header, str):
+        elif not isinstance(authorization_header, str):
             return None
-        if not authorization_header.startswith("Basic "):
+        elif not authorization_header.startswith("Basic "):
             return None
         return authorization_header[len("Basic "):]
 
@@ -29,7 +30,7 @@ class BasicAuth(Auth):
         """
         if base64_authorization_header is None:
             return None
-        if not isinstance(base64_authorization_header, str):
+        elif not isinstance(base64_authorization_header, str):
             return None
         try:
             decoded_bytes = base64.b64decode(base64_authorization_header)
@@ -39,15 +40,15 @@ class BasicAuth(Auth):
 
     def extract_user_credentials(
             self, decoded_base64_authorization_header: str
-        ) -> Tuple[Optional[str], Optional[str]]:
+        ) -> Tuple[str, str]:
         """
         Extracts the user email and password from the Base64 decoded value
         """
         if decoded_base64_authorization_header is None:
             return None, None
-        if not isinstance(decoded_base64_authorization_header, str):
+        elif not isinstance(decoded_base64_authorization_header, str):
             return None, None
-        if ':' not in decoded_base64_authorization_header:
+        elif ':' not in decoded_base64_authorization_header:
             return None, None
 
         user_email, user_password = (
@@ -60,9 +61,9 @@ class BasicAuth(Auth):
         """
         Returns the user instance based on email and password
         """
-        if user_email is None or type(user_email) is not str:
+        if user_email is None or not isinstance(user_email, str):
             return None
-        if user_pwd is None or type(user_pwd) is not str:
+        elif user_pwd is None or not isinstance(user_pwd, str):
             return None
 
         try:
