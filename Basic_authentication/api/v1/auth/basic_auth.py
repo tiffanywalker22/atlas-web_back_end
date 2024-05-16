@@ -6,6 +6,7 @@ from typing import Tuple, Optional, TypeVar
 from models.user import User
 
 
+
 class BasicAuth(Auth):
     """class for basic auth"""
     def extract_base64_authorization_header(self,
@@ -55,33 +56,32 @@ class BasicAuth(Auth):
         return user_email, user_password
 
     def user_object_from_credentials(
-            self, user_email: str, user_pwd: str) -> Optional[User]:
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """
         Returns the user instance based on email and password
         """
-        if user_email is None or not isinstance(user_email, str):
+        if user_email is None or type(user_email) is not str:
             return None
-        if user_pwd is None or not isinstance(user_pwd, str):
+        if user_pwd is None or type(user_pwd) is not str:
             return None
 
         try:
             user_list = User.search({'email': user_email})
-            if len(user_list) == 0:
-                return None
-            if not user_list[0].is_vaild_password(user_pwd):
-                return None
-            return user_list[0]
         except Exception:
             return None
+        for user in user_list:
+            if user.is_valid_password(user_pwd):
+                return user
+        return None
 
-    def current_user(self, request=None):
+    def current_user(self, request=None) -> TypeVar('User'):
         """
         Retrieves the User instance for a request using basic auth
         """
         if request is None:
             return None
 
-        auth_header = request.headers.get('Authorization')
+        auth_header = self.authorization_header(request)
         base64_auth_header = self.extract_base64_authorization_header
         (auth_header)
         decoded_auth_header = self.decode_base64_authorization_header
