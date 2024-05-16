@@ -5,6 +5,7 @@ import base64
 from typing import Tuple, Optional, TypeVar
 from models.user import User
 
+User = TypeVar('User')
 
 class BasicAuth(Auth):
     """class for basic auth"""
@@ -80,7 +81,7 @@ class BasicAuth(Auth):
         if request is None:
             return None
 
-        auth_header = self.authorization_header(request)
+        auth_header = request.headers.get('Authorization')
         base64_auth_header = self.extract_base64_authorization_header
         (auth_header)
         decoded_auth_header = self.decode_base64_authorization_header
