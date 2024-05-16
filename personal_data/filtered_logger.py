@@ -5,6 +5,38 @@ fields should be filtered"""
 import re
 from typing import List
 import logging
+import csv
+import os
+import mysql.connector
+
+PII_FIELDS = ('name', 'email', 'phone', 'password', 'ssn')
+
+
+def get_db():
+    """
+    Connect to the MySQL database using environment variables for credentials
+    Returns:
+    mysql.connector.connection.MySQLConnection: The database connection object
+    Raises:
+    mysql.connector.Error: If there is an error connecting to the database
+    """
+
+    db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    try:
+        connection = mysql.connector.connect(
+            user=db_username,
+            password=db_password,
+            host=db_host,
+            database=db_name
+        )
+        return connection
+    except mysql.connector.Error as error:
+        print(f"Error connecting to the database: {error}")
+        raise
 
 
 class RedactingFormatter(logging.Formatter):
@@ -20,7 +52,6 @@ class RedactingFormatter(logging.Formatter):
         fields (List[str]): A list of strings representing fields
         with sensitive information
     """
-
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
@@ -36,7 +67,8 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """Customizes the format of log messages by obfuscating sensitive information  """
+        """Customizes the format of log messages by
+        obfuscating sensitive information  """
         def filter_datum(
                         fields: List[str],
                         redaction: str,
@@ -63,3 +95,19 @@ class RedactingFormatter(logging.Formatter):
         record.msg = filter_datum(self.fields, self.REDACTION, record.msg,
                                   self.SEPARATOR)
         return super(RedactingFormatter, self).format(record)
+
+
+def get_logger() -> logging.Logger:
+    """
+    Get a configured logger object for logging user data.
+    Returns:
+        .Logger: The configured logger object.
+    """
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    stream_handler = logging.StreamHandler()
+    formatter = RedactingFormatter(PII_FIELDS)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+    return logger
