@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """class is the template for all authentication system you will implement"""
-from typing import List, Type, TypeVar
 from flask import request
+from typing import List, Type, TypeVar
 
 User = TypeVar('User')
 
@@ -23,6 +23,6 @@ class Auth:
             return None
         return request.headers["Authorization"]
 
-    def current_user(self, request=None) -> User:
+    def current_user(self, request=None) -> TypeVar('User'):
         """ Method to get the current user """
         return None
