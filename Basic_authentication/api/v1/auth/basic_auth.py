@@ -61,10 +61,9 @@ class BasicAuth(Auth):
         """
         Returns the user instance based on email and password
         """
-        if not isinstance(user_email, str) or not isinstance(user_pwd, str):
+        if user_email is None or type(user_email) is not str:
             return None
-
-        if user_email is None or user_pwd is None:
+        if user_pwd is None or type(user_pwd) is not str:
             return None
         try:
             user_list = User.search({'email': user_email})
@@ -86,5 +85,4 @@ class BasicAuth(Auth):
         base64_header = self.extract_base64_authorization_header(auth_header)
         decoded_header = self.decode_base64_authorization_header(base64_header)
         user_email, user_pwd = self.extract_user_credentials(decoded_header)
-
         return self.user_object_from_credentials(user_email, user_pwd)
