@@ -6,7 +6,6 @@ from typing import Tuple, Optional, TypeVar
 from models.user import User
 
 
-
 class BasicAuth(Auth):
     """class for basic auth"""
     def extract_base64_authorization_header(self,
