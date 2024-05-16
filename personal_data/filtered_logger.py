@@ -36,6 +36,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """Customizes the format of log messages by obfuscating sensitive information  """
         def filter_datum(
                         fields: List[str],
                         redaction: str,
