@@ -83,8 +83,10 @@ def get_reset_password_token():
     except ValueError:
         abort(403)
 
-@app.route("/reset_password", methods=["PUT"])
+
+@app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password():
+    """ update passwords end point """
     email = request.form.get("email")
     reset_token = request.form.get("reset_token")
     new_password = request.form.get("new_password")
@@ -94,7 +96,6 @@ def update_password():
     except Exception:
         abort(403)
     return jsonify({"email": email, "message": "Password updated"})
-
 
 
 if __name__ == "__main__":
