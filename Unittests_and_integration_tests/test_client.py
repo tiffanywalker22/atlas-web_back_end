@@ -58,7 +58,6 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_public_repos_url.assert_called_once()
             mock_get_json.assert_called_once_with(public_repos_url)
 
-
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False),
@@ -68,6 +67,21 @@ class TestGithubOrgClient(unittest.TestCase):
         result = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(result, expected)
 
+
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integration test cases for GithubOrgClient"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Set up class method"""
+        cls.get_patcher = patch('requests.get',
+                                side_effect=cls.mocked_requests_get)
+        cls.mocked_get = cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        """Tear down class method"""
+        cls.get_patcher.stop()
 
 
 if __name__ == '__main__':
