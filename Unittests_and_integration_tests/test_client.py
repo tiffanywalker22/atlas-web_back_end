@@ -2,8 +2,9 @@
 """unit tests for client """
 import unittest
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
+from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -44,7 +45,7 @@ class TestGithubOrgClient(unittest.TestCase):
             {"name": "repo1"},
         ]
         mock_get_json.return_value = repos_name
-        expected_repo = ["repo1"]
+        expected_repos = ["repo1"]
         public_repos_url = "example.com"
 
         with patch.object(GithubOrgClient, '_public_repos_url',
@@ -54,7 +55,7 @@ class TestGithubOrgClient(unittest.TestCase):
             client = GithubOrgClient("test_org")
             result = client.public_repo()
 
-            self.assertEqual(result, expected_repo)
+            self.assertEqual(result, expected_repos)
             mock_public_repos_url.assert_called_once()
             mock_get_json.assert_called_once_with(public_repos_url)
 
@@ -68,6 +69,10 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
+@parameterized_class([
+    {"org_payload": org_payload, "repos_payload": repos_payload,
+     "expected_repos": expected_repos, "apache2_repos": apache2_repos}
+])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """Integration test cases for GithubOrgClient"""
 
