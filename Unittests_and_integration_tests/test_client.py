@@ -48,7 +48,7 @@ class TestGithubOrgClient(unittest.TestCase):
         expected_repos = ["repo1"]
         public_repos_url = "https://api.github.com/orgs/{org}"
 
-        with patch.object(client.GithubOrgClient, '_public_repos_url',
+        with patch.object(GithubOrgClient, '_public_repos_url',
                           new_callable=PropertyMock) as mock_public_repos_url:
             mock_public_repos_url.return_value = public_repos_url
 
