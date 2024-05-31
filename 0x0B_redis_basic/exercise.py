@@ -19,6 +19,7 @@ def call_history(method: Callable) -> Callable:
     """logs the input and output of a method"""
     @wraps(method)
     def wrapper(self, *args, **kwargs):
+        """increments call count and logs method i/o history in"""
         input_key = f"{method.__qualname__}:inputs"
         output_key = f"{method.__qualname__}:outputs"
 
@@ -57,8 +58,9 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable]
-            = None) -> Union[str, bytes, int, float, None]:
+    def get(
+        self, key: str, fn: Optional[Callable] = None
+    ) -> Union[str, bytes, int, float, None]:
         """retrieves data from cache based on key"""
         data = self._redis.get(key)
         if data is None:
