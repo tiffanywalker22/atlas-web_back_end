@@ -39,7 +39,8 @@ def replay(method: Callable):
     outputs = method.__self__._redis.lrange(output_key, 0, -1)
     print(f"{method.__qualname__} was called {len(inputs)} times:")
     for input_args, output in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{input_args.decode('utf-8')}) -> {output.decode('utf-8')}")
+        print(f"{method.__qualname__}(*{input_args.decode('utf-8')})"
+              f" -> {output.decode('utf-8')}")
 
 
 class Cache:
