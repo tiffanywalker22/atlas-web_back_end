@@ -25,4 +25,4 @@ class Cache:
         return self.get(key, lambda d: d.decode("utf-8"))
 
     def get_int(self, key: bytes) -> int:
-        return self.get(key, fn=lambda d: d.decode("utf-8"))
+        return self.get(key, lambda d: int(d.decode("utf-8")))
