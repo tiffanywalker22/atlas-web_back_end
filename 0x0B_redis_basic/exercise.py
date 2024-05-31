@@ -24,5 +24,5 @@ class Cache:
     def get_str(self, key: str) -> Optional[str]:
         return self.get(key, lambda d: d.decode("utf-8"))
 
-    def get_int(self, key: str) -> Optional[int]:
-        return self.get(key, int)
+    def get_int(self, key: bytes) -> int:
+        return self.get(key, fn=lambda d: d.decode("utf-8"))
