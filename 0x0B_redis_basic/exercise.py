@@ -14,7 +14,7 @@ class Cache:
         return
 
     def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float, None]:
-        data = self._reis.get(key)
+        data = self._redis.get(key)
         if data is None:
             return None
         if fn is not None:
