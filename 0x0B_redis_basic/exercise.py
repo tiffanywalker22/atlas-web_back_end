@@ -39,8 +39,8 @@ def replay(method: Callable):
     outputs = method.__self__._redis.lrange(output_key, 0, -1)
     print(f"{method.__qualname__} was called {len(inputs)} times:")
     for input_args, output in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{input_args.decode
-              ('utf-8')}) -> {output.decode('utf-8')}")
+        print(f"{method.__qualname__}(*
+              {input_args.decode('utf-8')}) -> {output.decode('utf-8')}")
 
 
 class Cache:
@@ -58,7 +58,9 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float, None]:
+    def get(
+        self, key: str, fn: Optional[Callable] = None
+    ) -> Union[str, bytes, int, float, None]:
         """retrieves data from cache based on key"""
         data = self._redis.get(key)
         if data is None:
