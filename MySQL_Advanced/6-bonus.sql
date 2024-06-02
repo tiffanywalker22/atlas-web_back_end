@@ -1,7 +1,7 @@
 -- task six, add bonus
 -- sql script that creates a stored procedure
 DELIMITER //
-CREATE PROCEDURE ADDBonus(IN user_id, in project_name VARCHAR(255), IN SCORE INT)
+CREATE PROCEDURE ADDBonus(IN user_id, in project_name VARCHAR(255), IN score INT)
 BEGIN
     DECLARE project_id INT;
     SELECT id INTO project_id FROM projects WHERE name = project_name;
