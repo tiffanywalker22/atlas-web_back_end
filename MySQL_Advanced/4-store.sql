@@ -1,0 +1,8 @@
+-- task four, buy buy buy
+-- sql script that creates a trigger
+CREATE TRIGGER after_order_insert
+AFTER INSERT ON orders
+FOR EACH ROW
+BEGIN UPDATE ITEMS
+SET quantity = quantity - NEW.quantity
+WHERE id = NEW.item_id;
