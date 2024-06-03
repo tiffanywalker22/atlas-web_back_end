@@ -1,7 +1,7 @@
 -- task seven, average score
 -- sql script that creates a stored procedure
 DELIMITTER //
-CREATE PROCEDURE ComputerAverageScoreForUser(IN user_id INT)
+CREATE PROCEDURE ComputeAverageScoreForUser(IN user_id INT)
 BEGIN
     DECLARE avg_score FLOAT;
     SELECT AVG(score) INTO avg_score
