@@ -17,5 +17,6 @@ def nginx_logs_stats():
     status_check_count = logs.count_documents({"method": "GET", "path": "/status"})
     print(f"{status_check_count} status check")
 
+
 if __name__ == "__main__":
     nginx_logs_stats()
