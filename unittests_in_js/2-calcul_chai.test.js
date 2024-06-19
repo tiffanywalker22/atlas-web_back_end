@@ -1,4 +1,4 @@
-// 1-calcul.test.js
+// 2-calcul_chai.test.js
 const expect = require('chai').expect;
 const calculateNumber = require('./2-calcul_chai.js');
 
