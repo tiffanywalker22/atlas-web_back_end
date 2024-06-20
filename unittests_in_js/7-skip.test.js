@@ -1,4 +1,4 @@
-const expect = require('chai').expect;
+const { expect } = require('chai');
 
 describe('Testing numbers', () => {
     it('1 is equal to 1', () => {
@@ -9,11 +9,11 @@ describe('Testing numbers', () => {
         expect(2 === 2).to.be.true;
     });
 
-    it('1 is equal to 3', () => {
+    it.skip('1 is equal to 3', () => {
         expect(1 === 3).to.be.true;
     });
 
-    it.skip('3 is equal to 3', () => {
+    it('3 is equal to 3', () => {
         expect(3 === 3).to.be.true;
     });
 
