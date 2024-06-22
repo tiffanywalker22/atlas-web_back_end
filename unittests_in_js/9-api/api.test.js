@@ -1,6 +1,6 @@
 const request = require('request');
 const { expect } = require('chai');
-const app = require('./api');
+const { app, server } = require('./api');
 
 describe('Cart page', () => {
     it('Correct status code when :id is a number?', (done) => {
@@ -22,6 +22,6 @@ describe('Cart page', () => {
     });
 
     after(() => {
-        app.close();
+        server.close();
     });
 });
