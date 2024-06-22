@@ -1,6 +1,5 @@
 const request = require('request');
 const { expect } = require('chai');
-const { app, server } = require('./api');
 
 describe('Payment system', () => {
     describe('GET /', () => {
@@ -27,9 +26,5 @@ describe('Payment system', () => {
                 done();
             });
         });
-    });
-
-    after(() => {
-        server.close();
     });
 });
