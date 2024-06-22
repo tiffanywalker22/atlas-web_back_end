@@ -2,23 +2,31 @@ const request = require('request');
 const { expect } = require('chai');
 const { app, server } = require('./api');
 
-describe('Cart page', () => {
-    it('Correct status code when :id is a number?', (done) => {
-        request('http://localhost:7865/cart/12', (error, response) => {
-            expect(response.statusCode).to.equal(200);
-            done();
+describe('Payment system', () => {
+    describe('GET /', () => {
+        it('Returns "Welcome to the payment system"', (done) => {
+            request('http://localhost:7865/', (error, response, body) => {
+                expect(response.statusCode).to.equal(200);
+                expect(body).to.equal('Welcome to the payment system');
+                done();
+            });
         });
     });
-
-    it('Correct status code when :id is NOT a number (=> 404)?', (done) => {
-        request('http://localhost:7865/cart/hello', (error, response) => {
-            expect(response.statusCode).to.equal(404);
-            done();
+    describe('GET /cart/:id', () => {
+        it('Returns Payment methods for cart number', (done) => {
+            const id = 12;
+            request(`http://localhost:7865/cart/${id}`, (error, response, body) => {
+                expect(response.statusCode).to.equal(200);
+                expect(body).to.equal(`Payment methods for cart ${id}`);
+                done();
+            });
         });
-    });
-
-    it('Other?', (done) => {
-        done();
+        it('Returns 404 when :id is NOT a number', (done) => {
+            request('http://localhost:7865/cart/hello', (error, response, body) => {
+                expect(response.statusCode).to.equal(404);
+                done();
+            });
+        });
     });
 
     after(() => {
